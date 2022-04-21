@@ -15,10 +15,10 @@ I0 = int(input('Enter the number of initial infected people: '))
 R0 = int(input('How many people are already recovered: '))
 D0 = int(input('How many people are already dead: '))
 S0 = N - I0 - R0 - D0
-beta = float(input('Enter your contact rate: '))
-gamma = float(input('Enter mean recovery rate: '))
-K = float(input('Enter how many infected die: '))
-time_frame = int(input('Please enter your time frame: '))
+beta = float(input('Enter your contact rate (How many infected people come into contact with other individuals per unit time): '))
+gamma = float(input('Enter mean recovery rate (1/ days to recover): '))
+K = float(input('Enter the proportion of how many infected die: '))
+time_frame = int(input('Please enter your time frame (days): '))
 
 t= np.linspace(0, time_frame, time_frame )
 
@@ -26,7 +26,7 @@ t= np.linspace(0, time_frame, time_frame )
 
 def deriv(y, t, N, beta, gamma, K):
     S, I, R, D = y
-    dSdt = -beta * S * I / N
+    dSdt =  -beta * S * I / N 
     dIdt = beta * S * I / N - gamma * I - K * I
     dRdt = gamma * I
     dDdt = K * I
@@ -40,12 +40,12 @@ S, I, R, D = ret.T
 
 fig = plt.figure(facecolor='w')
 ax = fig.add_subplot(111, facecolor='#dddddd', axisbelow=True)
-ax.plot(t, S/1000, 'b', alpha=0.5, lw=2, label='Susceptible')
-ax.plot(t, I/1000, 'r', alpha=0.5, lw=2, label='Infected')
-ax.plot(t, R/1000, 'g', alpha=0.5, lw=2, label='Recovered with immunity')
-ax.plot(t, D/1000, 'y', alpha=0.5, lw=2, label='Dead')
+ax.plot(t, S/N, 'b', alpha=0.5, lw=2, label='Susceptible')
+ax.plot(t, I/N, 'r', alpha=0.5, lw=2, label='Infected')
+ax.plot(t, R/N, 'g', alpha=0.5, lw=2, label='Recovered with immunity')
+ax.plot(t, D/N, 'y', alpha=0.5, lw=2, label='Dead')
 ax.set_xlabel('Time /days')
-ax.set_ylabel('Number')
+ax.set_ylabel('percentage of population ')
 ax.set_ylim(0,1.2)
 ax.yaxis.set_tick_params(length=0)
 ax.xaxis.set_tick_params(length=0)
