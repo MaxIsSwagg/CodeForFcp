@@ -13,6 +13,13 @@ import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
 
+
+""" 
+THIS HAS TO BE RUN THROUGH THE TERMINAL FOR THE ANIMATION TO SHOW UP
+"""
+
+
+
 # Total population, N.
 N = 1000
 # Initial number of infected and recovered individuals, I0 and R0.
