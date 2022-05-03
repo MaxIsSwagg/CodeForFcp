@@ -99,13 +99,17 @@ def init():
         line.set_data([],[])
     return lines
 
-
+labels = plotcols
+f = lambda m,c: plt.plot([],[],marker=m, color=c, ls="none")[0]
+handles = [f("s", plotcols[i]) for i in range(3)]
+legend = plt.legend(handles, labels, loc=3, framealpha=1, frameon=False)
 
 x = []
 y1 = []
 y2 = []
 y3 = []
 
+ax.legend((lines), ('susceptible', 'infected', 'recovered'), loc='upper right', shadow=True)
 
 def animate(i): 
     t = np.linspace(0, 160, 160)
