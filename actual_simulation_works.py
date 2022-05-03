@@ -234,7 +234,7 @@ def animate(i):
         
     return lines
 
-line_drawer = animation.FuncAnimation(fig2, func = animate, init_func=init, frames = 160,  interval = 5, repeat=False) 
+line_drawer = animation.FuncAnimation(fig2, func = animate, init_func=init, frames = 160,  interval = 1000/30, repeat=False) 
 
 plt.grid()
 plt.show()
