@@ -156,24 +156,86 @@ anim = animation.FuncAnimation(
                                interval = 1000 / fps, # in ms
                                repeat=False)
 
+# fig2 = plt.figure(facecolor='w')
+# ax = fig2.add_subplot(111, facecolor='#dddddd', axisbelow=True)
+# ax.plot(days, Infected, 'r', alpha=0.5, lw=2, label='Infected')
+# ax.plot(days, Recovered, 'g', alpha=0.5, lw=2, label='Recovered')
+# ax.plot(days, Dead, 'black', alpha=0.5, lw=2, label='Dead')
+# ax.plot(days, susceptible, 'grey', alpha=0.5, lw=2, label='Susceptible')
+# ax.set_xlabel('Time /days')
+# ax.set_ylabel('population')
+# ax.set_ylim(0,initial_population)
+# ax.yaxis.set_tick_params(length=0)
+# ax.xaxis.set_tick_params(length=0)
+# ax.grid(b=True, which='major', c='w', lw=2, ls='-')
+# legend = ax.legend()
+# legend.get_frame().set_alpha(0.5)
+# for spine in ('top', 'right', 'bottom', 'left'):
+#     ax.spines[spine].set_visible(False)
+# plt.show()
+
+
+"""
+UNDER HERE IS THE CODE TO ANIMATE THE PLOT
+NEED TO MAKE THAT INTO A REUSABLE FUNCTION FOR EASIER USE
+"""
+
+
+
 fig2 = plt.figure(facecolor='w')
-ax = fig2.add_subplot(111, facecolor='#dddddd', axisbelow=True)
-ax.plot(days, Infected, 'r', alpha=0.5, lw=2, label='Infected')
-ax.plot(days, Recovered, 'g', alpha=0.5, lw=2, label='Recovered')
-ax.plot(days, Dead, 'black', alpha=0.5, lw=2, label='Dead')
-ax.plot(days, susceptible, 'grey', alpha=0.5, lw=2, label='Susceptible')
-ax.set_xlabel('Time /days')
-ax.set_ylabel('population')
-ax.set_ylim(0,initial_population)
-ax.yaxis.set_tick_params(length=0)
-ax.xaxis.set_tick_params(length=0)
-ax.grid(b=True, which='major', c='w', lw=2, ls='-')
-legend = ax.legend()
-legend.get_frame().set_alpha(0.5)
-for spine in ('top', 'right', 'bottom', 'left'):
-    ax.spines[spine].set_visible(False)
+ax = plt.axes(xlim=(0, 100), ylim=(0, initial_population))
+plt.xlabel('Time (in days)')
+plt.ylabel('Populationn (in thousands)')
+
+plotlays, plotcols = [4], ["lightgrey", "red", "green", "grey"]
+lines = []
+for index in range(4):
+    lobj = ax.plot([],[],lw=2,color=plotcols[index])[0]
+    lines.append(lobj)
+    
+labels = plotcols
+f = lambda m,c: plt.plot([],[],marker=m, color=c, ls="none")[0]
+handles = [f("s", plotcols[i]) for i in range(3)]
+legend = plt.legend(handles, labels, loc=3, framealpha=1, frameon=False)    
+
+def init():
+    for line in lines:
+        line.set_data([],[])
+    return lines
+
+ax.legend((lines), ('Infected', 'Recovered', 'Dead', 'Susceptible'), loc='upper right', shadow=True)
+
+x = []
+y1 = []
+y2 = []
+y3 = []
+y4 = []
+
+def animate(i): 
+    
+    y_S = susceptible
+    y_I = Infected
+    y_R = Recovered
+    y_D = Dead
+    
+    x.append(days[i]) 
+    y1.append(y_S[i])
+    y2.append(y_I[i])
+    y3.append(y_R[i])
+    y4.append(y_D[i])
+    
+    ylist = [y1, y2, y3, y4]
+  
+    for lnum,line in enumerate(lines):
+        line.set_data(x, ylist[lnum]) # set data for each line separately. 
+    
+    # for index in range(0, 2):
+    #     line.set_data(x, ylist[index])
+        
+    return lines
+
+line_drawer = animation.FuncAnimation(fig2, func = animate, init_func=init, frames = 160,  interval = 5, repeat=False) 
+
+plt.grid()
 plt.show()
-
-
-
 
