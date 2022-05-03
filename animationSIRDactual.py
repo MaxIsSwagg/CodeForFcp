@@ -80,7 +80,7 @@ plt.ylabel('Number (in thousands)')
 
 
 
-plotlays, plotcols = [4], ["blue", "red", "green", "yellow"]
+plotlays, plotcols = [4], ["blue", "red", "green", "black"]
 lines = []
 for index in range(4):
     lobj = ax.plot([],[],lw=2,color=plotcols[index])[0]
