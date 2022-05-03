@@ -86,12 +86,17 @@ for index in range(4):
     lobj = ax.plot([],[],lw=2,color=plotcols[index])[0]
     lines.append(lobj)
     
+labels = plotcols
+f = lambda m,c: plt.plot([],[],marker=m, color=c, ls="none")[0]
+handles = [f("s", plotcols[i]) for i in range(3)]
+legend = plt.legend(handles, labels, loc=3, framealpha=1, frameon=False)    
 
 def init():
     for line in lines:
         line.set_data([],[])
     return lines
 
+ax.legend((lines), ('Susceptible', 'Infected', 'Recovered', 'Dead'), loc='upper right', shadow=True)
 
 
 x = []
