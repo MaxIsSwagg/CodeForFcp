@@ -142,7 +142,7 @@ fps = 30
 
 
 
-fig = plt.figure(figsize = (100,100))
+fig = plt.figure(figsize = (10,10))
 plt.title("Pandemic Spreading with Random Movement")
 plt.xticks([])
 plt.yticks([])
