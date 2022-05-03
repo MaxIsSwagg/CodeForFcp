@@ -78,7 +78,7 @@ plt.xlabel('Time (in days)')
 plt.ylabel('Number (in thousands)')
 
 
-ax.grid(b=True, which='major', c='w', lw=2, ls='-')
+# ax.grid(b=True, which='major', c='w', lw=2, ls='-')
 # legend = ax.legend()
 # legend.get_frame().set_alpha(0.5)
 for spine in ('top', 'right', 'bottom', 'left'):
