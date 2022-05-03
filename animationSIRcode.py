@@ -106,7 +106,6 @@ y1 = []
 y2 = []
 y3 = []
 
-ylist = [y1, y2, y3]
 
 def animate(i): 
     t = np.linspace(0, 160, 160)
