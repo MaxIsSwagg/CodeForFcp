@@ -154,7 +154,7 @@ anim = animation.FuncAnimation(
                                animate_func, 
                                frames = time,
                                interval = 1000 / fps, # in ms
-                               )
+                               repeat=False)
 
 fig2 = plt.figure(facecolor='w')
 ax = fig2.add_subplot(111, facecolor='#dddddd', axisbelow=True)
