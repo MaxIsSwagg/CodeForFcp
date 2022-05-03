@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Fri Apr 29 14:52:15 2022
+Created on Tue May  3 14:16:15 2022
 
 @author: maxchesters
 """
@@ -187,7 +187,7 @@ ax = plt.axes(xlim=(0, 100), ylim=(0, initial_population))
 plt.xlabel('Time (in days)')
 plt.ylabel('Populationn (in thousands)')
 
-plotlays, plotcols = [4], ["lightgrey", "red", "green", "grey"]
+plotlays, plotcols = [4], ["lightgrey", "red", "green", "black"]
 lines = []
 for index in range(4):
     lobj = ax.plot([],[],lw=2,color=plotcols[index])[0]
@@ -203,7 +203,7 @@ def init():
         line.set_data([],[])
     return lines
 
-ax.legend((lines), ('Infected', 'Recovered', 'Dead', 'Susceptible'), loc='upper right', shadow=True)
+ax.legend((lines), ('susceptible', 'Infected', 'Recovered', 'Dead'), loc='upper right', shadow=True)
 
 x = []
 y1 = []
@@ -239,3 +239,4 @@ line_drawer = animation.FuncAnimation(fig2, func = animate, init_func=init, fram
 plt.grid()
 plt.show()
 
+About
