@@ -25,29 +25,31 @@ RepeatFileInput = True #sets a variable to repeat the loop if an incorrect input
 
 while (RepeatFileInput == True):
     
-    file_input = str(input('please enter file for cases(including file path):'))
-    file_exist = os.path.exists(file_input)
-    if (file_exist == True):
-        dF_covid = pd.read_csv(file_input, sep = ',')
+    file_input = str(input('please enter file for cases(including file path): '))
+    file_exist = os.path.exists(file_input) # checking file exists
+    if (file_exist == True):   
+        dF_covid = pd.read_csv(file_input, sep = ',') # if file exists, it is saved as a dataframe variable
         dF_length = dF_covid
         RepeatFileInput = False 
     else:
         print('your file does not exist, please try again') 
 
     
-dF_covid.columns = ['Date', 'Cases']
+dF_covid.columns = ['Date', 'Cases'] # sets column names
 dF_covid.index = dF_covid['Date']
-dF_covid.pop('Date')
+dF_covid.pop('Date') # removes date column
        
 
-expand_dF = (input('Would you like to add more columns (True/False):'))
+expand_dF = (input('Would you like to add more columns? (True/False): '))
+
+# this while loop adds an extra column to the dataframe which was saved earlier
 
 while (expand_dF == 'True'):
-    column_addition = str(input('please enter a file name(including file path):'))
+    column_addition = str(input('please enter a file name(including file path): '))
     file_exist = os.path.exists(column_addition)
     if (file_exist == True):
         extra_column = pd.read_csv(column_addition, sep = ',')
-        column_name =  input('Please enter the name of your extra column:')
+        column_name =  input('Please enter the name of your extra column, (Use appropriate name with capital, eg "Tests", "Vaccinations": ')
         
         extra_column.columns = ['Date', column_name]
         extra_column.index  = extra_column['Date']
@@ -55,10 +57,12 @@ while (expand_dF == 'True'):
         
         dF_covid[column_name] = extra_column[column_name]
         
-        expand_dF = (input('Would you like to add more columns (True/False):'))
+        expand_dF = (input('Would you like to add more columns (True/False): '))
     else:
         print('your file does not exist, please try again')
 
+      
+# this adds a time column to the dataframe, starting at 0 on the first common date. This makes it a lot easier to plot     
 
 dF_covid.fillna(0)
 time = []
@@ -67,36 +71,18 @@ for x in range (0, len(dF_covid.index)):
     
 dF_covid["Time"] = time
 
-print(dF_covid)
+
+print(dF_covid) # the complete dataframe
 
 
 
-
-allColumns = dF_covid.columns.values.tolist()
-columns_noTime = allColumns.pop()
-# print(allColumns, ", ", columns_noTime)
+allColumns = dF_covid.columns.values.tolist() #list of column names
 
 dF_covid.plot(x='Time', y=allColumns)
-plt.ylabel("Population")
-
-
-
-# plot_check = input('Would you like to create a graph(Y/N)')
-# while (plot_check == 'Y'):
-#     plot_list = []
-#     plot_number = int(input('How many parameters would you like to plot') )
-#     for x in range(0, plot_number):
-#         plot_list.append(input('Please enter column title: '))
-    
-#     dF_covid.plot(x='Time'  , y = plot_list)
-#     plt.ylabel('Population')
-#     plt.show()
-#     plot_check = input('Would you like to create another graph(Y/N)')
-    
-    
+plt.ylabel("Population")    
     
 
-
+ 
 """
 
 The code that follows (for uk data) will highlight the key dates of rule/policy changes and
@@ -106,7 +92,7 @@ label them appropriately.
 
 
 
-if file_input == 'cases.csv':     # DEPENDS ON THE FILE NAME
+if file_input == 'data_cases_england.csv':     # DEPENDS ON THE FILE NAME
     uk_dates = input(str("Would you like to highlight UK restriction periods? (Y/N): "))
     while uk_dates != 'Y' and uk_dates != 'N':
         uk_dates = input(str("ERROR: Would you like to highlight UK restriction periods? (Y/N): "))
@@ -126,7 +112,7 @@ if uk_dates == 'Y':
     plt.axvspan(375, 473, facecolor='yellow', alpha=0.2)     # Pubs open
 
 
-    # If data for tests is included, the graph is greatly apmplified. So the labelling is
+    # If data for tests is included, the graph is greatly amplified. So the labelling is
     # different for each version of the line graph
     
     if "Vaccinations" in allColumns:
@@ -140,8 +126,7 @@ if uk_dates == 'Y':
         plt.text(473, 425000, "All Restrictions Lifted", fontdict=None, fontsize='x-small')
     
     
-    # Labelling sections for when 'Tests' column is involved
-    # Would be better if this linked to actual file name
+    # Labelling sections for when 'Tests' column is involved would be better if this linked to actual file name
     elif "Tests" in allColumns:
         plt.text(0, 140000, "1st Lockdown", fontdict=None, fontsize='x-small')
         plt.text(94, 285000, "Restrictions Eased", fontdict=None, fontsize='x-small')
@@ -151,6 +136,8 @@ if uk_dates == 'Y':
         plt.text(341, 1875000, "Schools Return", fontdict=None, fontsize='x-small')
         plt.text(375, 275000, "Restrictions Eased", fontdict=None, fontsize='x-small')
         plt.text(473, 175000, "All Restrictions Lifted", fontdict=None, fontsize='x-small')
+    
+    # When neither 'Tests' or 'Vaccinations' are considered, graph looks different again. These are different locations for annotation
     else:
         plt.text(0, 10000, "1st Lockdown", fontdict=None, fontsize='x-small')
         plt.text(94, 18000, "Restrictions Eased", fontdict=None, fontsize='x-small')
