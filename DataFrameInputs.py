@@ -78,6 +78,7 @@ while (plot_check == 'Y'):
         plot_list.append(input('Please enter column title: '))
     
     dF_covid.plot(x='Time'  , y = plot_list)
+    plt.ylabel('Population')
     plt.show()
     plot_check = input('Would you like to create another graph(Y/N)')
     
