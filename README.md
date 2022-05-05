@@ -6,6 +6,7 @@ All programs that are not in the main will be run in the main and you will be as
 for the sird model we reccomend the variable values should be along the lines of:
 
 initial infected people : 1
+
 recovered : 0
 
 dead : 0
