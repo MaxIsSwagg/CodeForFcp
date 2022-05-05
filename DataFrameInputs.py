@@ -123,20 +123,7 @@ def DataFrameInput():
         # If data for tests is included, the graph is greatly apmplified. So the labelling is
         # different for each version of the line graph
         
-        if "Vaccinations" in allColumns:
-            plt.text(0, 15000, "1st Lockdown", fontdict=None, fontsize='x-small')
-            plt.text(94, 30000, "Restrictions Eased", fontdict=None, fontsize='x-small')
-            plt.text(218, 75000, "2nd Lockdown", fontdict=None, fontsize='x-small')
-            plt.text(245, 115000, "Tiers Introduced", fontdict=None, fontsize='x-small')
-            plt.text(280, 157500, "3rd Lockdown", fontdict=None, fontsize='x-small')
-            plt.text(341, 187500, "Schools Return", fontdict=None, fontsize='x-small')
-            plt.text(375, 475000, "Restrictions Eased", fontdict=None, fontsize='x-small')
-            plt.text(473, 425000, "All Restrictions Lifted", fontdict=None, fontsize='x-small')
-        
-        
-        # Labelling sections for when 'Tests' column is involved
-        # Would be better if this linked to actual file name
-        elif "Tests" in allColumns:
+        if "Tests" in allColumns:
             plt.text(0, 140000, "1st Lockdown", fontdict=None, fontsize='x-small')
             plt.text(94, 285000, "Restrictions Eased", fontdict=None, fontsize='x-small')
             plt.text(218, 750000, "2nd Lockdown", fontdict=None, fontsize='x-small')
@@ -145,6 +132,19 @@ def DataFrameInput():
             plt.text(341, 1875000, "Schools Return", fontdict=None, fontsize='x-small')
             plt.text(375, 275000, "Restrictions Eased", fontdict=None, fontsize='x-small')
             plt.text(473, 175000, "All Restrictions Lifted", fontdict=None, fontsize='x-small')
+        
+        
+        # Labelling sections for when the 'Vaccinations' column is involved
+        # Would be better if this linked to actual file name
+        elif "Vaccinations" in allColumns:
+            plt.text(0, 15000, "1st Lockdown", fontdict=None, fontsize='x-small')
+            plt.text(94, 30000, "Restrictions Eased", fontdict=None, fontsize='x-small')
+            plt.text(218, 75000, "2nd Lockdown", fontdict=None, fontsize='x-small')
+            plt.text(245, 115000, "Tiers Introduced", fontdict=None, fontsize='x-small')
+            plt.text(280, 157500, "3rd Lockdown", fontdict=None, fontsize='x-small')
+            plt.text(341, 187500, "Schools Return", fontdict=None, fontsize='x-small')
+            plt.text(375, 475000, "Restrictions Eased", fontdict=None, fontsize='x-small')
+            plt.text(473, 425000, "All Restrictions Lifted", fontdict=None, fontsize='x-small')
         else:
             plt.text(0, 10000, "1st Lockdown", fontdict=None, fontsize='x-small')
             plt.text(94, 18000, "Restrictions Eased", fontdict=None, fontsize='x-small')
