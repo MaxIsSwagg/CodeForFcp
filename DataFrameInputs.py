@@ -42,9 +42,9 @@ dF_covid.index = dF_covid['Date']
 dF_covid.pop('Date')
        
 
-expand_dF = (input('Would you like to add more columns (True/ False):'))
+expand_dF = (input('Would you like to add more columns (Y/N):'))
 
-while (expand_dF == 'True'):
+while (expand_dF == 'Y'):
     column_addition = str(input('please enter a file name(including file path):'))
     file_exist = os.path.exists(column_addition)
     if (file_exist == True):
@@ -57,7 +57,7 @@ while (expand_dF == 'True'):
         
         dF_covid[column_name] = extra_column[column_name]
         
-        expand_dF = (input('Would you like to add more columns (True/ False):'))
+        expand_dF = (input('Would you like to add more columns (Y/ N):'))
     else:
         print('your file does not exist, please try again')
 
@@ -70,10 +70,18 @@ for x in range (0, len(dF_covid.index)):
 dF_covid["Time"] = time
 
 
+plot_check = input('Would you like to create a graph(Y/N)')
+while (plot_check == 'Y'):
+    plot_list = []
+    plot_number = int(input('How many parameters would you like to plot') )
+    for x in range(0, plot_number):
+        plot_list.append(input('Please enter column title: '))
+    
+    dF_covid.plot(x='Time'  , y = plot_list)
+    plt.show()
+    plot_check = input('Would you like to create another graph(Y/N)')
+    
 
-dF_covid.plot(x='Time'  , y=["Cases", "Deaths"])
-
-plt.show()
 
 
 
