@@ -23,7 +23,9 @@ death = 14 #in days
 chance_death = 0.05 #percentage
 time = 100 # length of pandemic
 
-
+def matrix_append (percentage, colour):
+    for s in range (0, (percentage)):
+        rgb_matrix.append(colour)
 
 
 initial_population = 5000000000 #susceptible people
@@ -112,17 +114,15 @@ for x in range (1, time):
     percentage_dead = math.floor((D0 / initial_population)* 10000)
     percentage_susceptible = 10000 - (percentage_dead + percentage_recovered + percentage_infected )
     
-    for s in range (0, (percentage_susceptible)):
-        rgb_matrix.append(GREY)
+ 
     
-    for i in range (0, (percentage_infected)):
-        rgb_matrix.append(RED)
     
-    for r in range (0, (percentage_recovered)):
-        rgb_matrix.append(GREEN)
+    matrix_append(percentage_susceptible, GREY)
+    matrix_append(percentage_infected, RED)
+    matrix_append(percentage_recovered, GREEN)
+    matrix_append(percentage_dead, BLACK)
     
-    for d in range (0, (percentage_dead)):
-        rgb_matrix.append(BLACK)
+    
     
     np.random.shuffle(rgb_matrix)    
     rgb_image = np.reshape(rgb_matrix,(100,100,3))
@@ -185,7 +185,7 @@ NEED TO MAKE THAT INTO A REUSABLE FUNCTION FOR EASIER USE
 fig2 = plt.figure(facecolor='w')
 ax = plt.axes(xlim=(0, 100), ylim=(0, initial_population))
 plt.xlabel('Time (in days)')
-plt.ylabel('Populationn (in thousands)')
+plt.ylabel('Population ')
 
 plotlays, plotcols = [4], ["lightgrey", "red", "green", "black"]
 lines = []
