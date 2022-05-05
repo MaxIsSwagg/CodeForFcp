@@ -1,5 +1,6 @@
 This repository contains 5 programs, one being the main, and 4 sets of csv data.
-All of the files should be stored in the same file path
+All of the files should be stored in the same directory.
+
 For the dataframe inputs code you should use the data with england in the title, or any csv data in the same format of two columns and in data time.
 All programs that are not in the main will be run in the main and you will be asked whether you will want to run them.
 
