@@ -5,7 +5,11 @@ Created on Tue May  3 14:16:15 2022
 
 @author: maxchesters
 """
+"""
+This is our main code that will run everything
+"""
 
+    
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
@@ -39,24 +43,25 @@ D0 = 0 #initial dead
 D1 = 0 #placeholder for calculating recovered each day
 
 
-Infected_new = []
-Infected_new.append(I0)
-Recovered=[]
-Dead = []
+Infected_new = [] 
+Infected_new.append(I0) #list of new infected per day
+Recovered=[] 
+Dead = []    #list of total recovered dead susceptible and infected 
 Infected = []
-image = []
-days = []
 susceptible= []
+image = [] #stores images as a list
+days = [] #counts days
 
-all_infected = False
+
+all_infected = False # boolean for if everyone has been infected
 
 end = False
 
 for x in range (1, time):
     if( I0+R0+D0 < initial_population and all_infected == False ):
-        I0 = math.ceil(I0 * r0)
+        I0 = math.ceil(I0 * r0)     # infected multiplied by how many they infect each day
         if (I0+R0+D0 > initial_population):
-            I0 = initial_population - (R0+D0)
+            I0 = initial_population - (R0+D0)  #keeps variables within size of population
             all_infected = True
     
         
@@ -76,8 +81,8 @@ for x in range (1, time):
         if( x >= death):
             
             if((I0 + R0 + D0) == initial_population and (Infected_new[x - death]) <= 0  ):
-                D1 = math.floor(I0 * chance_death)
-                D0 = D0 + D1
+                D1 = math.floor(I0 * chance_death)   #if the point is reached where people start to die
+                D0 = D0 + D1                         #the values of recovered and dead are calculated from how long ago they were infected
                 R0 = R0 + (I0 - D1)
                 I0 = 0
                 end = True
@@ -87,11 +92,11 @@ for x in range (1, time):
             
                 D1 =  math.floor((Infected_new[x - death]) * chance_death )
                 D0 = D0 + D1
-                R0 = R0 + ((Infected_new[x - death]) - D1)
+                R0 = R0 + ((Infected_new[x - death]) - D1) #If there is no new infected people to calculate from everybody either dies or recovers
                 I0 = I0 - Infected_new[x - death]
         
             if(I0 - I1 >= 0):
-                Infected_new.append(I0 - I1)  
+                Infected_new.append(I0 - I1)      #updates value for newly infected peoplle
                 I1 = I0
             else:
                 Infected_new.append(0)
@@ -102,7 +107,7 @@ for x in range (1, time):
         
             
     Infected.append(I0)
-    Dead.append(D0)        
+    Dead.append(D0)            #appends variables for the day to list for plotting
     Recovered.append(R0)
     days.append(x)   
     susceptible.append(initial_population-(I0+R0+D0))    
@@ -110,7 +115,7 @@ for x in range (1, time):
     
     rgb_matrix = []
     percentage_infected = math.floor((I0 / initial_population)* 10000)
-    percentage_recovered = math.floor((R0 / initial_population)* 10000)
+    percentage_recovered = math.floor((R0 / initial_population)* 10000)      #calculates values as a percentage of 10000
     percentage_dead = math.floor((D0 / initial_population)* 10000)
     percentage_susceptible = 10000 - (percentage_dead + percentage_recovered + percentage_infected )
     
@@ -119,23 +124,22 @@ for x in range (1, time):
     
     matrix_append(percentage_susceptible, GREY)
     matrix_append(percentage_infected, RED)
-    matrix_append(percentage_recovered, GREEN)
+    matrix_append(percentage_recovered, GREEN) #creates the image matrix for the day
     matrix_append(percentage_dead, BLACK)
     
     
     
     np.random.shuffle(rgb_matrix)    
-    rgb_image = np.reshape(rgb_matrix,(100,100,3))
+    rgb_image = np.reshape(rgb_matrix,(100,100,3)) #shuffles matrix and forms it into 100 x 100 image
     image.append(rgb_image)    
                     
      # total for day before
    
-print(Infected_new)
-print('----')
+
 
 
 def animate_func(i):
-    im.set_array(image[i])
+    im.set_array(image[i])      #function to create animated image
     return [im]
 
 fps = 30
@@ -143,7 +147,7 @@ fps = 30
 
 
 fig = plt.figure(figsize = (10,10))
-plt.title("Pandemic Spreading with Random Movement")
+plt.title("Pandemic Spreading with Random Movement") #creates figure
 plt.xticks([])
 plt.yticks([])
 
@@ -154,7 +158,7 @@ anim = animation.FuncAnimation(
                                animate_func, 
                                frames = time,
                                interval = 1000 / fps, # in ms
-                               repeat=False)
+                               repeat=False)   #animates image
 
 # fig2 = plt.figure(facecolor='w')
 # ax = fig2.add_subplot(111, facecolor='#dddddd', axisbelow=True)
@@ -184,7 +188,7 @@ NEED TO MAKE THAT INTO A REUSABLE FUNCTION FOR EASIER USE
 
 fig2 = plt.figure(facecolor='w')
 ax = plt.axes(xlim=(0, 100), ylim=(0, initial_population))
-plt.xlabel('Time (in days)')
+plt.xlabel('Time (in days)')     #creates graph
 plt.ylabel('Population ')
 
 plotlays, plotcols = [4], ["lightgrey", "red", "green", "black"]
@@ -203,10 +207,10 @@ def init():
         line.set_data([],[])
     return lines
 
-ax.legend((lines), ('susceptible', 'Infected', 'Recovered', 'Dead'), loc='upper right', shadow=True)
+ax.legend((lines), ('susceptible', 'Infected', 'Recovered', 'Dead'), loc='upper right', shadow=True) #legend
 
 x = []
-y1 = []
+y1 = []    #empty lists to store plot points
 y2 = []
 y3 = []
 y4 = []
@@ -218,7 +222,7 @@ def animate(i):
     y_R = Recovered
     y_D = Dead
     
-    x.append(days[i]) 
+    x.append(days[i])            #creates lists of graph points to animate
     y1.append(y_S[i])
     y2.append(y_I[i])
     y3.append(y_R[i])
@@ -239,4 +243,35 @@ line_drawer = animation.FuncAnimation(fig2, func = animate, init_func=init, fram
 plt.grid()
 plt.show()
 
-About
+"""
+Under here you have the option to run the imported code DataFrameInputs.
+This will allow you to plot the data for england only in the git hub repo and
+you are able to choose what data you use.
+"""
+
+
+
+
+
+import DataFrameInputs
+
+"""
+Under here you have the option to run an SIRD model to compare
+"""
+
+import animationSIRDactual
+
+"""
+Here you are asked if you want to run the sir animation
+"""
+
+
+import animationSIRcode
+
+"""
+Here it asks if you want to see vaccination data the data you use should is vaccinations.csv
+"""
+import vaccinegraph
+
+
+ContinueWithSim = input('hit enter to run the simulation')
