@@ -56,6 +56,9 @@ if (Animate_Check == 'Y'):
     ret = odeint(deriv, y0, t, args=(N, beta, gamma, K))
     S, I, R, D = ret.T
     
+    # The piece of code below was initially used to plot the graph figure,
+    # we had to get rid of it in order to have an animated plot.
+
     # fig = plt.figure(facecolor='w')
     # ax = fig.add_subplot(111, facecolor='#dddddd', axisbelow=True)
     # ax.plot(t, S/N, 'b', alpha=0.5, lw=2, label='Susceptible')
@@ -125,9 +128,7 @@ if (Animate_Check == 'Y'):
       
         for lnum,line in enumerate(lines):
             line.set_data(x, ylist[lnum]) # set data for each line separately. 
-        
-        # for index in range(0, 2):
-        #     line.set_data(x, ylist[index])
+
             
         return lines
     
