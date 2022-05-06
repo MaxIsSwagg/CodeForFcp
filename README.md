@@ -20,3 +20,6 @@ Death rate : 0.05
 
 Time : 100
 
+Sometimes after pulling the git and running main_simulation.py it might say modules reloaded and you may have to re input data
+
+In addition all of the imported modules can be run by themselves and do not require the main to run 
