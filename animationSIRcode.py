@@ -45,6 +45,9 @@ if (AnimateCheck == 'Y'):
     ret = odeint(deriv, y0, t, args=(N, beta, gamma))
     S, I, R = ret.T
     
+    # The piece of code below was initially used to plot the graph figure,
+    # we had to get rid of it in order to have an animated plot.
+
     # Plot the data on three separate curves for S(t), I(t) and R(t)
     # fig = plt.figure(facecolor='w')
     # ax = fig.add_subplot(111, facecolor='#dddddd', axisbelow=True)
@@ -72,26 +75,20 @@ if (AnimateCheck == 'Y'):
     
     figure = plt.figure(facecolor='w')
     ax = plt.axes(xlim=(0, 160), ylim=(0, 1.2))
-    # ax.set_xlim(0, 160) 
-    # ax.set_ylim(0, 1.2)
+
     plt.xlabel('Time (in days)')
     plt.ylabel('Number (in thousands)')
     
-    
-    # ax.grid(b=True, which='major', c='w', lw=2, ls='-')
-    # legend = ax.legend()
-    # legend.get_frame().set_alpha(0.5)
+
     for spine in ('top', 'right', 'bottom', 'left'):
         ax.spines[spine].set_visible(False)
     
-    
-    # line,  = ax.plot(0, 0)
+
     plotlays, plotcols = [3], ["blue", "red", "green"]
     lines = []
     for index in range(3):
         lobj = ax.plot([],[],lw=2,color=plotcols[index])[0]
         lines.append(lobj)
-    
     
     
     def init():
@@ -126,9 +123,7 @@ if (AnimateCheck == 'Y'):
       
         for lnum,line in enumerate(lines):
             line.set_data(x, ylist[lnum]) # set data for each line separately. 
-        
-        # for index in range(0, 2):
-        #     line.set_data(x, ylist[index])
+
             
         return lines
     
