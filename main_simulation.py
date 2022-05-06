@@ -63,10 +63,7 @@ for x in range (1, time):
         if (I0+R0+D0 > initial_population):
             I0 = initial_population - (R0+D0)  #keeps variables within size of population
             all_infected = True
-    
-        
-        
-        
+  
     else:
         all_infected = True
    
@@ -76,8 +73,7 @@ for x in range (1, time):
         if (x < death):
             Infected_new.append(I0 - I1) # uploads value for new infected today
             I1 = I0 
-        
-    
+           
         if( x >= death):
             
             if((I0 + R0 + D0) == initial_population and (Infected_new[x - death]) <= 0  ):
@@ -88,8 +84,7 @@ for x in range (1, time):
                 end = True
             
             else:
-            
-            
+   
                 D1 =  math.floor((Infected_new[x - death]) * chance_death )
                 D0 = D0 + D1
                 R0 = R0 + ((Infected_new[x - death]) - D1) #If there is no new infected people to calculate from everybody either dies or recovers
@@ -101,11 +96,7 @@ for x in range (1, time):
             else:
                 Infected_new.append(0)
     
-            
-        
-         
-        
-            
+
     Infected.append(I0)
     Dead.append(D0)            #appends variables for the day to list for plotting
     Recovered.append(R0)
@@ -160,6 +151,9 @@ anim = animation.FuncAnimation(
                                interval = 1000 / fps, # in ms
                                repeat=False)   #animates image
 
+# The piece of code below was initially used to plot the graph figure,
+# we had to get rid of it in order to have an animated plot.
+
 # fig2 = plt.figure(facecolor='w')
 # ax = fig2.add_subplot(111, facecolor='#dddddd', axisbelow=True)
 # ax.plot(days, Infected, 'r', alpha=0.5, lw=2, label='Infected')
@@ -181,7 +175,6 @@ anim = animation.FuncAnimation(
 
 """
 UNDER HERE IS THE CODE TO ANIMATE THE PLOT
-NEED TO MAKE THAT INTO A REUSABLE FUNCTION FOR EASIER USE
 """
 
 
